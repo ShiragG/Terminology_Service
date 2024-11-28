@@ -7,12 +7,12 @@ class CatalogSerializer(ModelSerializer):
         model = Catalog
         fields = '__all__'
 
-class CatalogElementSerializer(ModelSerializer):
-    class Meta:
-        model = CatalogElement
-        fields = '__all__'
-
 class CatalogVersionSerializer(ModelSerializer):
     class Meta:
         model = CatalogVersion
+        fields = '__all__'
+
+class CatalogElementSerializer(ModelSerializer):
+    class Meta:
+        model = CatalogElement
         fields = '__all__'

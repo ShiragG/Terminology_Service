@@ -16,13 +16,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-
 from rest_framework.routers import SimpleRouter
+
+from service.views import CatalogViewSet, CatalogVersionViewSet, CatalogElementViewSet
 
 router = SimpleRouter()
 
-#router.register
+router.register(r'catalogs', CatalogViewSet)
+router.register(r'catalog-versions', CatalogVersionViewSet)
+router.register(r'catalog-elements', CatalogElementViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 ]
+
+urlpatterns += router.urls
