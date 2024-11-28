@@ -1,17 +1,17 @@
 from rest_framework.viewsets import ModelViewSet
 
-from service.models import Catalog, CatalogElement, CatalogVersion
-from service.serializers import CatalogSerializer, CatalogElementSerializer, CatalogVersionSerializer
+from service.models import RefBook, RefBookElement, RefBookVersion
+from service.serializers import RefBookSerializer, RefBookElementSerializer, RefBookVersionSerializer
 
 
-class CatalogViewSet(ModelViewSet):
-    queryset = Catalog.objects.all()
-    serializer_class = CatalogSerializer
+class RefBookViewSet(ModelViewSet):
+    queryset = RefBook.objects.all()
+    serializer_class = RefBookSerializer
 
-class CatalogElementViewSet(ModelViewSet):
-    queryset = CatalogElement.objects.all()
-    serializer_class = CatalogElementSerializer
+class RefBookElementViewSet(ModelViewSet):
+    queryset = RefBookElement.objects.all()
+    serializer_class = RefBookElementSerializer
 
-class CatalogVersionViewSet(ModelViewSet):
-    queryset = CatalogVersion.objects.all()
-    serializer_class = CatalogVersionSerializer
+class RefBookVersionViewSet(ModelViewSet):
+    queryset = RefBookVersion.objects.all()
+    serializer_class = RefBookVersionSerializer

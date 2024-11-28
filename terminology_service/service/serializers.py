@@ -1,18 +1,18 @@
 from rest_framework.serializers import ModelSerializer
 
-from service.models import Catalog, CatalogElement, CatalogVersion
+from service.models import RefBook, RefBookVersion, RefBookElement
 
-class CatalogSerializer(ModelSerializer):
+class RefBookSerializer(ModelSerializer):
     class Meta:
-        model = Catalog
+        model = RefBook
         fields = '__all__'
 
-class CatalogVersionSerializer(ModelSerializer):
+class RefBookVersionSerializer(ModelSerializer):
     class Meta:
-        model = CatalogVersion
+        model = RefBookVersion
         fields = '__all__'
 
-class CatalogElementSerializer(ModelSerializer):
+class RefBookElementSerializer(ModelSerializer):
     class Meta:
-        model = CatalogElement
+        model = RefBookElement
         fields = '__all__'

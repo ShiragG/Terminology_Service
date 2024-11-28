@@ -18,13 +18,13 @@ from django.contrib import admin
 from django.urls import path
 from rest_framework.routers import SimpleRouter
 
-from service.views import CatalogViewSet, CatalogVersionViewSet, CatalogElementViewSet
+from service.views import RefBookViewSet, RefBookVersionViewSet, RefBookElementViewSet
 
 router = SimpleRouter()
 
-router.register(r'catalogs', CatalogViewSet)
-router.register(r'catalog-versions', CatalogVersionViewSet)
-router.register(r'catalog-elements', CatalogElementViewSet)
+router.register(r'catalogs', RefBookViewSet)
+router.register(r'catalog-versions', RefBookVersionViewSet)
+router.register(r'catalog-elements', RefBookElementViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
