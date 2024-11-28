@@ -22,9 +22,9 @@ from service.views import RefBookViewSet, RefBookVersionViewSet, RefBookElementV
 
 router = SimpleRouter()
 
-router.register(r'catalogs', RefBookViewSet)
-router.register(r'catalog-versions', RefBookVersionViewSet)
-router.register(r'catalog-elements', RefBookElementViewSet)
+router.register(r'refbooks', RefBookViewSet)
+router.register(r'refbooks-versions', RefBookVersionViewSet)
+router.register(r'refbooks-elements', RefBookElementViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
