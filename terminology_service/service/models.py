@@ -14,13 +14,13 @@ class RefBook(models.Model):
         verbose_name_plural = 'Справочники'
 
     def __str__(self):
-        return self.code
+        return self.name
 
 
 class RefBookVersion(models.Model):
 
     refbook_id = models.ForeignKey(
-        RefBook, on_delete=models.CASCADE, blank=False, null=False, verbose_name='Идентификатор справочника')
+        RefBook, on_delete=models.CASCADE, blank=False, null=False, verbose_name='Cправочник')
     version = models.CharField(
         max_length=50, blank=False, null=False, verbose_name='Версия')
     start_date = models.DateField(
@@ -40,7 +40,7 @@ class RefBookVersion(models.Model):
 class RefBookElement(models.Model):
 
     refbook_version_id = models.ForeignKey(
-        RefBookVersion, on_delete=models.CASCADE, blank=False, null=False, verbose_name='Идентификатор версии справочника')
+        RefBookVersion, on_delete=models.CASCADE, blank=False, null=False, verbose_name='Версия справочника')
     code = models.CharField(max_length=100, blank=False,
                             null=False, verbose_name='Код элемента')
     value = models.CharField(max_length=300, blank=False,

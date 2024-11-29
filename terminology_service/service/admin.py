@@ -1,26 +1,51 @@
 from django.contrib import admin
+from django.utils import timezone
 
 from service.models import RefBook, RefBookVersion, RefBookElement
 
+class RefBookVersionInline(admin.TabularInline):
+    model = RefBookVersion
+    extra = 1
+    verbose_name = 'Версия справочника'
+    verbose_name_plural = 'Версии справочника'
+
+
+@admin.register(RefBook)
 class RefBookAdmin(admin.ModelAdmin):
-    list_display = ('id', 'code', 'name', 'display_current_version', 'display_start_date')
+    list_display = ('get_id', 'code', 'name', 'get_current_version', 'get_current_start_date')
+    inlines = [RefBookVersionInline]
+    current_date = timezone.now().date()
     
-    def display_current_version(self,obj):
-        return ''
+    def get_id(self,obj):
+        return obj.id
+    get_id.short_description = 'Идентификатор'
     
-    def display_start_date(self,obj):
-        return ''
+    def get_current_version(self,obj):
+        return obj.refbookversion_set.filter(start_date__lte=self.current_date).order_by('-start_date').first().version
+    get_current_version.short_description = 'Текущая версия'
+    
+    def get_current_start_date(self,obj):
+        return obj.refbookversion_set.filter(start_date__lte=self.current_date).order_by('-start_date').first().start_date
+    get_current_start_date.short_description = 'Дата начала версии'
 
-admin.site.register(RefBook, RefBookAdmin)
 
+class RefBookElementInline(admin.TabularInline):
+    model = RefBookElement
+    extra = 1
+    verbose_name = 'Элемент справочника'
+    verbose_name_plural = 'Элементы справочника'
+
+@admin.register(RefBookVersion)
 class RefBookVersionAdmin(admin.ModelAdmin):
-    list_display = ('display_code_refbook', 'display_name_refbook', 'version', 'start_date')
+    list_display = ('get_code_refbook', 'get_name_refbook', 'version', 'start_date')
+    inlines = [RefBookElementInline]
     
-    def display_code_refbook(self,obj):
-        return ''
+    def get_code_refbook(self,obj):
+        return obj.refbook_id.code
+    get_code_refbook.short_description = 'Код справочника'
     
-    def display_name_refbook(self, obj):
-        return ''
+    def get_name_refbook(self, obj):
+        return obj.refbook_id.name
+    get_name_refbook.short_description = 'Наименование справочника'
 
-admin.site.register(RefBookVersion, RefBookVersionAdmin)
 admin.site.register(RefBookElement)
