@@ -21,11 +21,13 @@ class RefBookAdmin(admin.ModelAdmin):
     get_id.short_description = 'Идентификатор'
     
     def get_current_version(self,obj):
-        return obj.refbookversion_set.filter(start_date__lte=self.current_date).order_by('-start_date').first().version
+        current_version = obj.refbookversion_set.filter(start_date__lte=self.current_date).order_by('-start_date').first()
+        return current_version.version if current_version else None
     get_current_version.short_description = 'Текущая версия'
     
     def get_current_start_date(self,obj):
-        return obj.refbookversion_set.filter(start_date__lte=self.current_date).order_by('-start_date').first().start_date
+        current_start_date = obj.refbookversion_set.filter(start_date__lte=self.current_date).order_by('-start_date').first()
+        return current_start_date.start_date if current_start_date else None
     get_current_start_date.short_description = 'Дата начала версии'
 
 
@@ -41,11 +43,11 @@ class RefBookVersionAdmin(admin.ModelAdmin):
     inlines = [RefBookElementInline]
     
     def get_code_refbook(self,obj):
-        return obj.refbook_id.code
+        return obj.refbook.code
     get_code_refbook.short_description = 'Код справочника'
     
     def get_name_refbook(self, obj):
-        return obj.refbook_id.name
+        return obj.refbook.name
     get_name_refbook.short_description = 'Наименование справочника'
 
 admin.site.register(RefBookElement)

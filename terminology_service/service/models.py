@@ -7,7 +7,7 @@ class RefBook(models.Model):
                             null=False, unique=True, help_text='', verbose_name='Код')
     name = models.CharField(max_length=300, blank=False,
                             null=False, verbose_name='Наименование')
-    description = models.TextField(verbose_name='Описание')
+    description = models.TextField(verbose_name='Описание', null=True, blank=True)
 
     class Meta:
         verbose_name = 'Справочник'
@@ -19,7 +19,7 @@ class RefBook(models.Model):
 
 class RefBookVersion(models.Model):
 
-    refbook_id = models.ForeignKey(
+    refbook = models.ForeignKey(
         RefBook, on_delete=models.CASCADE, blank=False, null=False, verbose_name='Cправочник')
     version = models.CharField(
         max_length=50, blank=False, null=False, verbose_name='Версия')
