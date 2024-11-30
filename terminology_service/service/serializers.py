@@ -7,12 +7,7 @@ class RefBookSerializer(ModelSerializer):
         model = RefBook
         fields = ['id', 'code', 'name']
 
-class RefBookVersionSerializer(ModelSerializer):
-    class Meta:
-        model = RefBookVersion
-        fields = '__all__'
-
 class RefBookElementSerializer(ModelSerializer):
     class Meta:
         model = RefBookElement
-        fields = '__all__'
+        fields = ['code', 'value']
