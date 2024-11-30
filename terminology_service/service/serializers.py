@@ -5,7 +5,7 @@ from service.models import RefBook, RefBookVersion, RefBookElement
 class RefBookSerializer(ModelSerializer):
     class Meta:
         model = RefBook
-        fields = '__all__'
+        fields = ['id', 'code', 'name']
 
 class RefBookVersionSerializer(ModelSerializer):
     class Meta:

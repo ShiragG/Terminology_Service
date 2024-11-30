@@ -1,14 +1,8 @@
 from django.urls import path, include
-from rest_framework.routers import SimpleRouter
 
-from service.views import RefBookViewSet, RefBookVersionViewSet, RefBookElementViewSet
+from service.views import RefBookListView, RefBookElementListView
 
-router = SimpleRouter()
-
-# router.register(r'refbooks', RefBookViewSet)
-# router.register(r'refbooks-versions', RefBookVersionViewSet)
-# router.register(r'refbooks-elements', RefBookElementViewSet)
-
-# service_urlpatterns = [
-#     path('', include(router.urls)),
-# ]
+service_urlpatterns = [
+    path('refbooks/', RefBookListView.as_view()),
+    path('refbooks/<int:id>/elements', RefBookElementListView.as_view()),
+]
