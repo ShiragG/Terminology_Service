@@ -50,7 +50,7 @@ class RefBookElementListView(ListAPIView):
             refbook_version = get_object_or_404(
                 RefBookVersion, refbook_id=refbook, version=version_param)
         else:
-            current_date = timezone.now().date()
+            current_date = timezone.now().astimezone().date()
             refbook_version = RefBookVersion.objects.filter(
                 refbook_id=refbook,
                 start_date__lte=current_date
@@ -90,7 +90,7 @@ class RefBookCheckElementView(ListAPIView):
             if not refbook_version:
                 return RefBookElement.objects.none()
         else:
-            current_date = timezone.now().date()
+            current_date = timezone.now().astimezone().date()
             refbook_version = RefBookVersion.objects.filter(
                 refbook_id=refbook,
                 start_date__lte=current_date

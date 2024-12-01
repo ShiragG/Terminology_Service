@@ -14,19 +14,18 @@ class RefBookVersionInline(admin.TabularInline):
 class RefBookAdmin(admin.ModelAdmin):
     list_display = ('get_id', 'code', 'name', 'get_current_version', 'get_current_start_date')
     inlines = [RefBookVersionInline]
-    current_date = timezone.now().date()
-    
+
     def get_id(self,obj):
         return obj.id
     get_id.short_description = 'Идентификатор'
     
     def get_current_version(self,obj):
-        current_version = obj.refbookversion_set.filter(start_date__lte=self.current_date).order_by('-start_date').first()
+        current_version = obj.refbookversion_set.filter(start_date__lte=timezone.now().astimezone().date()).order_by('-start_date').first()
         return current_version.version if current_version else None
     get_current_version.short_description = 'Текущая версия'
     
     def get_current_start_date(self,obj):
-        current_start_date = obj.refbookversion_set.filter(start_date__lte=self.current_date).order_by('-start_date').first()
+        current_start_date = obj.refbookversion_set.filter(start_date__lte=timezone.now().astimezone().date()).order_by('-start_date').first()
         return current_start_date.start_date if current_start_date else None
     get_current_start_date.short_description = 'Дата начала версии'
 
