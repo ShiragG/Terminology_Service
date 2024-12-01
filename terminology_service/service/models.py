@@ -27,10 +27,10 @@ class RefBookVersion(models.Model):
 
     class Meta:
         verbose_name = 'Версия справочника'
-        verbose_name_plural = 'Версии справочника'
+        verbose_name_plural = 'Версии справочников'
 
-        unique_together = (['refbook_id', 'version'], [
-                           'refbook_id', 'start_date'])
+        unique_together = (['refbook', 'version'], [
+                           'refbook', 'start_date'])
 
     def __str__(self):
         return self.version
@@ -38,7 +38,7 @@ class RefBookVersion(models.Model):
 
 class RefBookElement(models.Model):
 
-    refbook_version_id = models.ForeignKey(
+    refbook_version = models.ForeignKey(
         RefBookVersion, on_delete=models.CASCADE, blank=False, null=False, verbose_name='Версия справочника')
     code = models.CharField(max_length=100, blank=False,
                             null=False, verbose_name='Код элемента')
@@ -47,9 +47,9 @@ class RefBookElement(models.Model):
 
     class Meta:
         verbose_name = 'Элемент справочника'
-        verbose_name_plural = 'Элементы справочника'
+        verbose_name_plural = 'Элементы справочников'
 
-        unique_together = (['refbook_version_id', 'code'])
+        unique_together = (['refbook_version', 'code'])
 
     def __str__(self):
         return self.code

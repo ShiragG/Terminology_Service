@@ -59,7 +59,7 @@ class RefBookElementListView(ListAPIView):
             if not refbook_version:
                 return RefBookElement.objects.none()
 
-        return RefBookElement.objects.filter(refbook_version_id=refbook_version)
+        return RefBookElement.objects.filter(refbook_version=refbook_version)
 
     @swagger_auto_schema( manual_parameters=[
             openapi.Parameter('version', openapi.IN_QUERY, description="Версия справочника", type=openapi.TYPE_STRING, required=False, default=None),
@@ -99,7 +99,7 @@ class RefBookCheckElementView(ListAPIView):
             if not refbook_version:
                 return RefBookElement.objects.none()
 
-        return RefBookElement.objects.filter(refbook_version_id=refbook_version, code=code, value=value)
+        return RefBookElement.objects.filter(refbook_version=refbook_version, code=code, value=value)
 
     @swagger_auto_schema( manual_parameters=[
             openapi.Parameter('code', openapi.IN_QUERY, description="Код элемента справочника", type=openapi.TYPE_STRING, required=True, default=None),
