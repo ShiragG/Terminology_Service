@@ -1,6 +1,5 @@
 from django.db import models
 
-
 class RefBook(models.Model):
 
     code = models.CharField(max_length=100, blank=False,

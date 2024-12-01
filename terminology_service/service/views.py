@@ -2,9 +2,10 @@ from datetime import datetime
 
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
-from rest_framework import status
 from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
 
 
 from service.models import RefBook, RefBookElement, RefBookVersion
@@ -19,14 +20,20 @@ class RefBookListView(ListAPIView):
         if date_param:
             try:
                 date = datetime.strptime(date_param, '%Y-%m-%d').date()
-                return RefBook.objects.filter(refbookversion__start_date__lte=date).distinct()
-            except:
-                return None
-        print('all')
-        return RefBook.objects.all()
+                refbooks = RefBook.objects.filter(refbookversion__start_date__lte=date).distinct()
+            except ValueError:
+                refbooks = RefBook.objects.none()
+        else:
+            refbooks = RefBook.objects.all()
 
-    def list(self, request):
-        serializer = self.get_serializer(self.get_queryset(), many=True)
+        return refbooks
+    
+    @swagger_auto_schema( manual_parameters=[
+            openapi.Parameter('date', openapi.IN_QUERY, description="Дата в формате YYYY-MM-DD", type=openapi.TYPE_STRING, required=False,default=None),
+        ])
+    def get(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        serializer = self.get_serializer(queryset, many=True)
         return Response({"refbooks": serializer.data})
 
 
@@ -54,8 +61,12 @@ class RefBookElementListView(ListAPIView):
 
         return RefBookElement.objects.filter(refbook_version_id=refbook_version)
 
-    def list(self, request, *args, **kwargs):
-        serializer = self.get_serializer(self.get_queryset(), many=True)
+    @swagger_auto_schema( manual_parameters=[
+            openapi.Parameter('version', openapi.IN_QUERY, description="Версия справочника", type=openapi.TYPE_STRING, required=False, default=None),
+        ])
+    def get(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        serializer = self.get_serializer(queryset, many=True)
         return Response({"elements": serializer.data})
 
 
@@ -90,6 +101,12 @@ class RefBookCheckElementView(ListAPIView):
 
         return RefBookElement.objects.filter(refbook_version_id=refbook_version, code=code, value=value)
 
-    def list(self, request, *args, **kwargs):
+    @swagger_auto_schema( manual_parameters=[
+            openapi.Parameter('code', openapi.IN_QUERY, description="Код элемента справочника", type=openapi.TYPE_STRING, required=True, default=None),
+            openapi.Parameter('value', openapi.IN_QUERY, description="Значение элемента справочника", type=openapi.TYPE_STRING, required=True, default=None),
+            openapi.Parameter('version', openapi.IN_QUERY, description="Версия справочника", type=openapi.TYPE_STRING, required=False, default=None),
+        ])
+    def get(self, request, *args, **kwargs):
         serializer = self.get_serializer(self.get_queryset(), many=True)
         return Response({"element": serializer.data})
+
