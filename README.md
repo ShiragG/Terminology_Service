@@ -12,11 +12,7 @@ python3.10 -m venv .venv
 
 3. Разрешите запуск скрипта activate и активируйте его
 ```shell
-<<<<<<< HEAD
 sudo chmod +x ./.venv/bin/activate && ./.venv/bin/activate 
-=======
-# chmod +x ./.venv/bin/activate && source ./.venv/bin/activate 
->>>>>>> origin/main
 ```
 
 4. Перейдите в корень проекта и установите зависимости
