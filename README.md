@@ -1,4 +1,14 @@
 # Тестовое задание на написание сервиса терминологии и REST API к нему
+0. Быстрый старт
+```shell
+git clone https://github.com/ShiragG/Terminology_Service.git &&
+python3.10 -m venv .venv &&
+sudo chmod +x ./.venv/bin/activate && source ./.venv/bin/activate  &&
+cd ./Terminology_Service && pip install -r requirements.txt &&
+cd ./terminology_service && ./manage.py migrate &&
+./manage.py createsuperuser &&
+./manage.py runserver
+```
 
 1. Откройте терминал и скопируйте репозиторий:
 ```shell
@@ -27,7 +37,7 @@ cd ./terminology_service && ./manage.py migrate
 
 6. Создайте суперпользователя
 ```shell
-./manage.py createsuperuser 
+./manage.py createsuperuser
 ```
 
 7. Запустите сервер
