@@ -39,8 +39,6 @@ class RefBookElementListView(ListAPIView):
 
         version_param = self.request.query_params.get('version', None)
 
-        
-
         if version_param:
             refbook_version = get_object_or_404(
                 RefBookVersion, refbook_id=refbook, version=version_param)
@@ -60,22 +58,24 @@ class RefBookElementListView(ListAPIView):
         serializer = self.get_serializer(self.get_queryset(), many=True)
         return Response({"elements": serializer.data})
 
+
 class RefBookCheckElementView(ListAPIView):
     serializer_class = RefBookElementSerializer
-    
+
     def get_queryset(self):
         refbook_id = self.kwargs['id']
         refbook = get_object_or_404(RefBook, id=refbook_id)
-    
+
         code = self.request.query_params.get('code', None)
         value = self.request.query_params.get('value', None)
-        
+
         if not code or not value:
             return RefBookElement.objects.none()
-        
+
         version_param = self.request.query_params.get('version', None)
         if version_param:
-            refbook_version = RefBookVersion.objects.filter(refbook_id=refbook, version=version_param).first()
+            refbook_version = RefBookVersion.objects.filter(
+                refbook_id=refbook, version=version_param).first()
             if not refbook_version:
                 return RefBookElement.objects.none()
         else:
@@ -88,9 +88,8 @@ class RefBookCheckElementView(ListAPIView):
             if not refbook_version:
                 return RefBookElement.objects.none()
 
-        print(refbook_version)
         return RefBookElement.objects.filter(refbook_version_id=refbook_version, code=code, value=value)
-        
+
     def list(self, request, *args, **kwargs):
         serializer = self.get_serializer(self.get_queryset(), many=True)
         return Response({"element": serializer.data})
