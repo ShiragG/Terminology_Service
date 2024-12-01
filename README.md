@@ -1,11 +1,11 @@
 # Тестовое задание на написание сервиса терминологии и REST API к нему
 
-1. Откройте терминал и скопируйте код:
+1. Откройте терминал и скопируйте репозиторий:
 ```shell
 git clone https://github.com/ShiragG/Terminology_Service.git
 ```
 
-2. Проект написан на python 3.10
+2. Создайте виртуальное окружение (проект написан на python 3.10)
 ```shell
 python3.10 -m venv .venv
 ```
@@ -30,7 +30,7 @@ cd ./terminology_service && ./manage.py migrate
 ./manage.py createsuperuser 
 ```
 
-7. Запустите сервер http://127.0.0.1:8000/
+7. Запустите сервер
 ```shell
 ./manage.py runserver
 ```
